@@ -16,6 +16,10 @@ app.use(bodyParser.json());
 const DATABASE_URL = process.env.DATABASE_URL;
 const PORT = process.env.PORT;
 
+app.get('/', function (req, res) {
+    res.send('Home!');
+});
+
 app.use('*', function (req, res) {
     res.status(404).json({ message: 'Not Found' });
 });
@@ -24,9 +28,6 @@ app.use('*', function (req, res) {
 // gets created when `runServer` runs, so we declare `server` here
 // and then assign a value to it in run
 
-app.get('/', function (req, res) {
-    res.send('Home!');
-});
 
 let server;
 
