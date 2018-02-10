@@ -1,6 +1,10 @@
 const express = require('express');
+
 let userRouter = express.Router();
 
+
+const UserModel = require('../models/userModel');
+const EventDataModel = require('../models/eventDataModel');
 
 //get a user
 userRouter.get('/:id', (req, res) => {
@@ -36,7 +40,7 @@ userRouter.post('/create', (req, res) => {
 
 });
 
-//update a user - BODY: [coinName] [userAmount], [previousValue], [date]
+//update a user
 userRouter.put('/update/:id', (req, res) => {
     let requiredParamsNames = ['coinName', 'id'];
     let requiredBodyNames = ['userAmount', 'previousValue', 'date'];

@@ -30,7 +30,7 @@ const CampaignEventDataSchema = mongoose.Schema({
 });
 
 
-CampaignEventData.methods.serialize = function () {
+CampaignEventDataSchema.methods.serialize = function () {
   console.log(this);
 
   return {

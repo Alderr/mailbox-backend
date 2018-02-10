@@ -15,7 +15,7 @@ const UserSchema = mongoose.Schema({
         name: { type: String, required: true },
         lists: [{
           name: { type: String, required: true }
-        }]
+        }],
         email_content: {
           subject: { type: String, required: true},
           body: { type: String, required: true },
@@ -28,14 +28,14 @@ const UserSchema = mongoose.Schema({
       name: { type: String, required: true },
       contacts: [{
         firstName: { type: String},
-        lastName: { type: String }
+        lastName: { type: String },
         email: { type: String, required: true}
       }]
     }]
 });
 
 
-User.methods.serialize = function () {
+UserSchema.methods.serialize = function () {
   console.log(this);
 
   return {
