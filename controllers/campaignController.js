@@ -12,12 +12,13 @@ const createCampaign = (response, campaign, userId) => {
         data.campaigns = [...data.campaigns, campaign]
         return data.save();
       }
-
-      response.send('Nope.');
+      else {
+        return response.send('Nope.');
+      }
     })
     .then(res => {
       console.log(res);
-      response.status(201).send('Added.');
+      return response.status(201).send('Added.');
     })
     .catch((err) => {
       console.log(err);
@@ -30,10 +31,10 @@ const getAllCampaigns = (response, userId) => {
   .then(data => {
     if(data) {
       console.log(data.campaigns);
-      response.json(data.campaigns);
+      return response.json(data.campaigns);
     }
 
-    response.send('Nope.');
+    return response.send('Nope.');
   })
   .catch((err) => {
     response.send('Error!');
