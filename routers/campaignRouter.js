@@ -2,7 +2,7 @@ const express = require('express');
 
 const campaignRouter = express.Router();
 
-const { createCampaign } = require('../controllers/campaignController');
+const { createCampaign, getAllCampaigns } = require('../controllers/campaignController');
 
 //get a campaign
 campaignRouter.get('/:userId/:id', (req, res) => {
@@ -20,8 +20,12 @@ campaignRouter.get('/:userId/:id', (req, res) => {
 });
 
 //gets all campaigns
-campaignRouter.get('/:userId/all', (req, res) => {
+campaignRouter.get('/:userId', (req, res) => {
 
+  let { userId } = req.params;
+
+  getAllCampaigns(res, userId);
+  
 });
 
 //create a campaign
@@ -37,9 +41,9 @@ campaignRouter.post('/:userId/create', (req, res) => {
     let { name, email_content, lists } = req.body;
     let { userId } = req.params;
 
-    createCampaign({ name, email_content, lists }, userId);
+    createCampaign(res, { name, email_content, lists }, userId);
 
-    res.send('Request recieved. POST campaign');
+    // res.send('Request recieved. POST campaign');
 
 });
 
