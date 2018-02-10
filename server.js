@@ -6,12 +6,15 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
+const userRouter = require('./routers/userRouter');
 
 const app = express();
 
 app.use(morgan('common'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+
+app.use('/user/', userRouter);
 
 const DATABASE_URL = process.env.DATABASE_URL;
 const PORT = process.env.PORT;
