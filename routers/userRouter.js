@@ -3,13 +3,10 @@ const express = require('express');
 let userRouter = express.Router();
 
 
-const UserModel = require('../models/userModel');
-const EventDataModel = require('../models/eventDataModel');
-
 //get a user
 userRouter.get('/:id', (req, res) => {
 
-    const requiredParamsNames = ['coinName', 'id'];
+    const requiredParamsNames = ['id'];
 
     for (let name in requiredParamsNames){
         if (!req.params[requiredParamsNames[name]]) {
@@ -17,7 +14,7 @@ userRouter.get('/:id', (req, res) => {
         }
     }
 
-    let { coinName, id } = req.params;
+    let { id } = req.params;
 
 });
 
