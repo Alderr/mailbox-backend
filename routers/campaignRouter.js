@@ -20,7 +20,7 @@ campaignRouter.get('/:userId/:id', (req, res) => {
 });
 
 //gets all campaigns
-campaignRouter.get('/all', (req, res) => {
+campaignRouter.get('/:userId/all', (req, res) => {
 
 });
 
