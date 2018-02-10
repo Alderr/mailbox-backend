@@ -14,7 +14,7 @@ app.use(morgan('common'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-app.use('/user/', userRouter);
+app.use('/user', userRouter);
 
 const DATABASE_URL = process.env.DATABASE_URL;
 const PORT = process.env.PORT;
