@@ -1,8 +1,8 @@
 const express = require('express');
 
-let userRouter = express.Router();
+const userRouter = express.Router();
 
-
+const { createUser } = require('../controllers/userController');
 //get a user
 userRouter.get('/:id', (req, res) => {
 
@@ -25,7 +25,7 @@ userRouter.get('/all', (req, res) => {
 
 //create a user
 userRouter.post('/create', (req, res) => {
-    let requiredQueryNames = ['coinName', 'userAmount'];
+    let requiredQueryNames = ['username', 'password', 'name'];
 
     for (let name in requiredQueryNames){
         if (!req.body[requiredQueryNames[name]]) {
@@ -33,7 +33,11 @@ userRouter.post('/create', (req, res) => {
         }
     }
 
-    let { coinName, userAmount, date, previousValue } = req.body;
+    let { username, password, name } = req.body;
+
+    createUser({username, password, name});
+
+    res.send('Request recieved. POST USER');
 
 });
 

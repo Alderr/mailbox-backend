@@ -50,4 +50,4 @@ UserSchema.methods.serialize = function () {
 
 const UserModel = mongoose.model('Users', UserSchema);
 
-module.exports = { UserModel };
+module.exports =  UserModel ;
