@@ -13,24 +13,29 @@ const createCampaign = (response, campaign, userId) => {
   console.log(userId);
   console.log(campaign);
 
-  UserModel.findById(userId)
-    .then((data) => {
-      if (data) {
-        console.log(data.campaigns);
-        data.campaigns = [...data.campaigns, campaign]
-        return data.save();
-      }
-      else {
-        return response.send('Nope.');
-      }
-    })
-    .then(res => {
-      console.log(res);
-      return response.status(201).send('Added.');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  response.send('create campaign!');
+  //create eventCampaign & get id of it
+
+  const campaign_id = createEventDataCampaign();
+  console.log('campaign_id ', campaign_id);
+  // UserModel.findById(userId)
+  //   .then((data) => {
+  //     if (data) {
+  //       console.log(data.campaigns);
+  //       data.campaigns = [...data.campaigns, campaign]
+  //       return data.save();
+  //     }
+  //     else {
+  //       return response.send('Nope.');
+  //     }
+  //   })
+  //   .then(res => {
+  //     console.log(res);
+  //     return response.status(201).send('Added.');
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
 }
 
 const getAllCampaigns = (response, userId) => {

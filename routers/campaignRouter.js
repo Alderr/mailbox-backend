@@ -25,7 +25,7 @@ campaignRouter.get('/:userId', (req, res) => {
   let { userId } = req.params;
 
   getAllCampaigns(res, userId);
-  
+
 });
 
 //create a campaign

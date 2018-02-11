@@ -3,9 +3,12 @@ const EventDataModel = require('../models/eventDataModel');
 
 
 const createEventDataCampaign = () => {
-  EventDataModel.create()
+  return EventDataModel.create({})
   .then(data => {
+    console.log('I created the campaign?');
     console.log(data);
+    console.log('-----------------------');
+    return data;
   })
   .catch(err => {
     console.log(err);
