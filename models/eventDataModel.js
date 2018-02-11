@@ -3,32 +3,30 @@ mongoose.Promise = global.Promise;
 
 
 const CampaignEventDataSchema = mongoose.Schema({
-    userId: {type: String, required: true},
-    campaignId: {type: String, required: true},
-    send: [
+    send:
       {
         count: { type: Number },
         emails: [
           { type: String, required: true }
         ]
       }
-    ],
-    open: [
+    ,
+    open:
       {
         count: { type: Number },
         emails: [
           { type: String, required: true }
         ]
       }
-    ],
-    click: [
+    ,
+    click:
       {
         count: { type: Number },
         emails: [
           { type: String, required: true }
         ]
       }
-    ]
+    
 });
 
 

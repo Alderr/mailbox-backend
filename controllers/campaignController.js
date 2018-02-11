@@ -1,7 +1,15 @@
 const UserModel = require('../models/userModel');
 const EventDataModel = require('../models/eventDataModel');
 
+const { createEventDataCampaign } = require('./eventDataController');
+
 const createCampaign = (response, campaign, userId) => {
+  //user has a list, creates a campaign
+  //campaign is created first
+  //then an eventDataCampaign obj is created for future [events]
+  //that eventDataCampaign id is saved onto UserModel-campaign obj
+  //the created userModel-campaign is sent to aws-ses-server!
+
   console.log(userId);
   console.log(campaign);
 
