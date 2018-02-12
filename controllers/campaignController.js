@@ -1,45 +1,50 @@
 const UserModel = require('../models/userModel');
-const EventDataModel = require('../models/eventDataModel');
 
 const { createEventDataCampaign } = require('./eventDataController');
+const { sendEmailNow } = require('./sendEmailController');
 
-const createCampaign = (response, campaign, userId) => {
+const createCampaign = (response, newCampaign, userId) => {
     //user has a list, they create a campaign
     //first an eventDataCampaign obj is created for future [events] in COLLECTION
     //that eventDataCampaign id is saved onto UserModel-campaign obj aka campaign var
     //second, a campaign is created in COLLECTION
     //the created userModel-campaign is sent to aws-ses-server!
 
-    console.log(userId);
-    console.log(campaign);
+    // console.log(userId);
+    // console.log(campaign);
 
     //create eventCampaign & get id of it
     createEventDataCampaign()
         .then(data => {
 
             //attach id to campaign
-            campaign.campaignEventId = data._id;
+            newCampaign.campaignEventId = data._id;
 
-            //add campaign to specific user
+            //add campaign to specific user but first find it
             UserModel.findById(userId)
                 .then((data) => {
 
+                    //save campaign onto user obj
                     if (data) {
                         console.log('all campaigns!', data);
-                        data.campaigns = [...data.campaigns, campaign];
+                        data.campaigns = [...data.campaigns, newCampaign];
                         return data.save();
                     }
 
+                    //user doesnt exist
                     else {
-                        console.log('Nope?');
-                        return response.send('Nope.');
+                        response.send('Nope.');
+                        return Promise.reject('Error!');
                     }
                 })
-                .then(res => {
+                .then(savedCampaign => {
                     console.log('I saved the data?');
-                    console.log(res);
+                    console.log(savedCampaign);
                     console.log('--------------------');
-                    return response.status(201).send('Added.');
+                    response.status(201).send('Added.');
+
+                    //send the campaign ASAP
+                    sendEmailNow(userId, newCampaign);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -52,7 +57,7 @@ const createCampaign = (response, campaign, userId) => {
 //not done
 const getCampaign = (response, userId, campaignId) => {
 
-}
+};
 
 const getAllCampaigns = (response, userId) => {
 
@@ -74,11 +79,11 @@ const getAllCampaigns = (response, userId) => {
 //not done
 const updateCampaign = (response, userId, campaignId) => {
 
-}
+};
 
 //not done
 const deleteCampaign = (response, userId, campaignId) => {
 
-}
+};
 
 module.exports = { createCampaign, getAllCampaigns };
