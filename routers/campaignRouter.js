@@ -23,7 +23,7 @@ campaignRouter.get('/:userId/:id', (req, res) => {
 campaignRouter.get('/:userId', (req, res) => {
 
   let { userId } = req.params;
-
+ 
   getAllCampaigns(res, userId);
 
 });

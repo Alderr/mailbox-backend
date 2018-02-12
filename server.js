@@ -9,7 +9,7 @@ mongoose.Promise = global.Promise;
 const userRouter = require('./routers/userRouter');
 const campaignRouter = require('./routers/campaignRouter');
 const eventDataRouter = require('./routers/eventDataRouter');
-const app = express(); 
+const app = express();
 
 app.use(morgan('common'));
 app.use(morgan('dev'));
@@ -20,7 +20,7 @@ app.use('/campaign', campaignRouter);
 app.use('/eventData', eventDataRouter);
 
 const DATABASE_URL = process.env.DATABASE_URL;
-const PORT = process.env.PORT;
+const PORT = process.env.PORT; 
 
 app.get('/', function (req, res) {
     res.send('Home!');

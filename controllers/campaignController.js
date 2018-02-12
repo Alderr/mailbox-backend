@@ -16,7 +16,6 @@ const createCampaign = (response, campaign, userId) => {
     //create eventCampaign & get id of it
     createEventDataCampaign()
         .then(data => {
-            console.log('campaignid ', data._id);
 
             //attach id to campaign
             campaign.campaignEventId = data._id;
@@ -50,12 +49,16 @@ const createCampaign = (response, campaign, userId) => {
 
 };
 
+//not done
+const getCampaign = (response, userId, campaignId) => {
+
+}
+
 const getAllCampaigns = (response, userId) => {
 
     UserModel.findById(userId)
         .then(data => {
             if(data) {
-                console.log(data.campaigns);
                 return response.json(data.campaigns);
             }
 
@@ -68,5 +71,14 @@ const getAllCampaigns = (response, userId) => {
 
 };
 
+//not done
+const updateCampaign = (response, userId, campaignId) => {
+
+}
+
+//not done
+const deleteCampaign = (response, userId, campaignId) => {
+
+}
 
 module.exports = { createCampaign, getAllCampaigns };
