@@ -5,7 +5,6 @@ mongoose.Promise = global.Promise;
 const CampaignEventDataSchema = mongoose.Schema({
     send:
       {
-          count: { type: Number, default: 0 },
           emails: [
               { type: String, required: true }
           ]
@@ -13,7 +12,6 @@ const CampaignEventDataSchema = mongoose.Schema({
     ,
     open:
       {
-          count: { type: Number, default: 0 },
           emails: [
               { type: String, required: true }
           ]
@@ -21,7 +19,6 @@ const CampaignEventDataSchema = mongoose.Schema({
     ,
     click:
       {
-          count: { type: Number, default: 0 },
           emails: [
               { type: String, required: true }
           ]
