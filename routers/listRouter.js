@@ -1,5 +1,13 @@
 const express = require('express');
 
+const {
+
+    createList,
+    getList,
+    getAllLists
+
+} = require('../controllers/listController');
+
 const listRouter = express.Router();
 
 //get a list
@@ -22,13 +30,13 @@ listRouter.get('/:userId', (req, res) => {
 
     let { userId } = req.params;
 
-    //getAlllists(res, userId);
+    getAllLists(res, userId);
 
 });
 
 //create a list
 listRouter.post('/:userId/create', (req, res) => {
-    let requiredQueryNames = ['name', 'email_content', 'lists'];
+    let requiredQueryNames = ['name', 'contacts'];
 
     for (let name in requiredQueryNames){
         if (!req.body[requiredQueryNames[name]]) {
@@ -36,11 +44,10 @@ listRouter.post('/:userId/create', (req, res) => {
         }
     }
 
-    let { name } = req.body;
+    let { name, contacts } = req.body;
     let { userId } = req.params;
 
-    //createlist(res, { name, email_content, lists }, userId);
-
+    createList(res, { name , contacts }, userId);
 
 });
 

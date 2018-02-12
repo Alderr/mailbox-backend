@@ -2,10 +2,12 @@ const express = require('express');
 
 const eventDataRouter = express.Router();
 const {
+  
     createEventDataCampaign,
     getEventDataCampaign,
     updateEventDataCampaign,
     getAllEventDataCampaigns
+
 } = require('../controllers/eventDataController');
 
 //get all event data objects

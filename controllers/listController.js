@@ -35,9 +35,9 @@ const createList = (response, newList, userId) => {
 
 };
 
-const getAllLists = (response) => {
+const getAllLists = (response, userId) => {
 
-    UserModel.find()
+    UserModel.findById(userId)
         .then((data) => {
 
             //save List onto user obj
@@ -55,9 +55,15 @@ const getAllLists = (response) => {
         .catch((err) => {
             console.log(err);
         });
+
+};
+
+const getList = (response, listId, userId) => {
+
 };
 
 module.exports = {
     createList,
+    getList,
     getAllLists
 };
