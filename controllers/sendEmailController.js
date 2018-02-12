@@ -1,3 +1,4 @@
+const axios = require('axios');
 
 const sendEmailNow = (userId, campaign) => {
 
