@@ -13,29 +13,41 @@ const createCampaign = (response, campaign, userId) => {
   console.log(userId);
   console.log(campaign);
 
-  response.send('create campaign!');
   //create eventCampaign & get id of it
+  createEventDataCampaign()
+    .then(data => {
+      console.log('campaignid ', data._id);
 
-  const campaign_id = createEventDataCampaign();
-  console.log('campaign_id ', campaign_id);
-  // UserModel.findById(userId)
-  //   .then((data) => {
-  //     if (data) {
-  //       console.log(data.campaigns);
-  //       data.campaigns = [...data.campaigns, campaign]
-  //       return data.save();
-  //     }
-  //     else {
-  //       return response.send('Nope.');
-  //     }
-  //   })
-  //   .then(res => {
-  //     console.log(res);
-  //     return response.status(201).send('Added.');
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
+      //attach id to campaign
+      campaign.campaignEventId = data._id;
+
+      //add campaign
+      UserModel.findById(userId)
+        .then((data) => {
+          
+          if (data) {
+            console.log('all campaigns!', data);
+            data.campaigns = [...data.campaigns, campaign]
+            return data.save();
+          }
+
+          else {
+            console.log('Nope?');
+            return response.send('Nope.');
+          }
+        })
+        .then(res => {
+          console.log('I saved the data?');
+          console.log(res);
+          console.log('--------------------');
+          return response.status(201).send('Added.');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+    });
+
 }
 
 const getAllCampaigns = (response, userId) => {

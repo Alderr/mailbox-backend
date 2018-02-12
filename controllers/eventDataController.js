@@ -2,7 +2,7 @@ const UserModel = require('../models/userModel');
 const EventDataModel = require('../models/eventDataModel');
 
 
-const createEventDataCampaign = () => {
+const createEventDataCampaign = (response, data) => {
   return EventDataModel.create({})
   .then(data => {
     console.log('I created the campaign?');
@@ -15,7 +15,7 @@ const createEventDataCampaign = () => {
   });
 }
 
-const getAllEventDataCampaigns = () => {
+const getAllEventDataCampaigns = (response) => {
   EventDataModel.find()
   .then(data => {
     console.log(data);
@@ -25,7 +25,7 @@ const getAllEventDataCampaigns = () => {
   });
 }
 
-const getEventDataCampaign = (id) => {
+const getEventDataCampaign = (response, id) => {
   EventDataModel.findById(id)
   .then(data => {
     console.log(data);
@@ -35,4 +35,31 @@ const getEventDataCampaign = (id) => {
   });
 }
 
-module.exports = { createEventDataCampaign, getAllEventDataCampaigns, getEventDataCampaign };
+const updateEventDataCampaign = (response, id, data) => {
+  EventDataModel.findById(id)
+    .then((data) => {
+      if (data) {
+        console.log(data);
+        // data.campaigns = [...data.campaigns, campaign]
+        // return data.save();
+      }
+      else {
+        return response.send('Nope.');
+      }
+    })
+    // .then(res => {
+    //   console.log(res);
+    //   return response.status(201).send('Added.');
+    // })
+    .catch((err) => {
+      console.log(err);
+    });
+}
+
+module.exports =
+{
+  createEventDataCampaign,
+  getAllEventDataCampaigns,
+  getEventDataCampaign,
+  updateEventDataCampaign
+};
