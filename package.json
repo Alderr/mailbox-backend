@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Alderr/mailbox-backend#readme",
   "dependencies": {
+    "axios": "^0.17.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "chai-http": "^3.0.0",
