@@ -20,6 +20,9 @@
             "error",
             "single"
         ],
+        "no-console": [
+            "warn"
+        ],
         "semi": [
             "error",
             "always"

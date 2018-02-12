@@ -5,41 +5,41 @@ mongoose.Promise = global.Promise;
 const CampaignEventDataSchema = mongoose.Schema({
     send:
       {
-        count: { type: Number, default: 0 },
-        emails: [
-          { type: String, required: true }
-        ]
+          count: { type: Number, default: 0 },
+          emails: [
+              { type: String, required: true }
+          ]
       }
     ,
     open:
       {
-        count: { type: Number, default: 0 },
-        emails: [
-          { type: String, required: true }
-        ]
+          count: { type: Number, default: 0 },
+          emails: [
+              { type: String, required: true }
+          ]
       }
     ,
     click:
       {
-        count: { type: Number, default: 0 },
-        emails: [
-          { type: String, required: true }
-        ]
+          count: { type: Number, default: 0 },
+          emails: [
+              { type: String, required: true }
+          ]
       }
 
 });
 
 
 CampaignEventDataSchema.methods.serialize = function () {
-  console.log(this);
+    console.log(this);
 
-  return {
-      id: this._id,
-      send: this.send,
-      open: this.open,
-      click: this.click
-  };
-}
+    return {
+        id: this._id,
+        send: this.send,
+        open: this.open,
+        click: this.click
+    };
+};
 
 const CampaignEventDataModel = mongoose.model('CampaignEventData', CampaignEventDataSchema);
 
