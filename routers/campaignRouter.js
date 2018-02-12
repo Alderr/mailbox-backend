@@ -48,7 +48,7 @@ campaignRouter.post('/:userId/create', (req, res) => {
 });
 
 //update a campaign
-campaignRouter.put('/update/:id', (req, res) => {
+campaignRouter.put('/:userId/update/:id', (req, res) => {
     let requiredParamsNames = ['coinName', 'id'];
     let requiredBodyNames = ['campaignAmount', 'previousValue', 'date'];
 
@@ -71,7 +71,7 @@ campaignRouter.put('/update/:id', (req, res) => {
 });
 
 //del a campaign
-campaignRouter.delete('/delete/:id', (req, res) => {
+campaignRouter.delete(':userId/delete/:id', (req, res) => {
     let requiredParamsNames = ['id'];
 
     for (let name in requiredParamsNames){
@@ -86,7 +86,7 @@ campaignRouter.delete('/delete/:id', (req, res) => {
 });
 
 //delete all campaigns NUKE
-campaignRouter.delete('/delete/all', (req, res) => {
+campaignRouter.delete(':userId/delete/all', (req, res) => {
 
 });
 

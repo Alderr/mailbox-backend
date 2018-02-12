@@ -4,10 +4,10 @@ const EventDataModel = require('../models/eventDataModel');
 const { createEventDataCampaign } = require('./eventDataController');
 
 const createCampaign = (response, campaign, userId) => {
-    //user has a list, creates a campaign
-    //campaign is created first
-    //then an eventDataCampaign obj is created for future [events]
-    //that eventDataCampaign id is saved onto UserModel-campaign obj
+    //user has a list, they create a campaign
+    //first an eventDataCampaign obj is created for future [events] in COLLECTION
+    //that eventDataCampaign id is saved onto UserModel-campaign obj aka campaign var
+    //second, a campaign is created in COLLECTION
     //the created userModel-campaign is sent to aws-ses-server!
 
     console.log(userId);
@@ -21,10 +21,10 @@ const createCampaign = (response, campaign, userId) => {
             //attach id to campaign
             campaign.campaignEventId = data._id;
 
-            //add campaign
+            //add campaign to specific user
             UserModel.findById(userId)
                 .then((data) => {
-          
+
                     if (data) {
                         console.log('all campaigns!', data);
                         data.campaigns = [...data.campaigns, campaign];

@@ -44,7 +44,7 @@ eventDataRouter.put('/insertData', (req, res) => {
 });
 
 //delete specific campaign
-eventDataRouter.del('/delete', (req, res) => {
+eventDataRouter.delete('/delete', (req, res) => {
 
     const { campaign_event_id } = req.body;
 
