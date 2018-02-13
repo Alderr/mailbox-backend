@@ -33,7 +33,7 @@ const createCampaign = (response, newCampaign, userId) => {
 
                     //user doesnt exist
                     else {
-                        response.send('Nope.');
+                        response.send('Nope. No such user.');
                         return Promise.reject('Error!');
                     }
                 })

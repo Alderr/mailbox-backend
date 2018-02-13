@@ -11,9 +11,9 @@ const {
 const listRouter = express.Router();
 
 //get a list
-listRouter.get('/:userId/:id', (req, res) => {
+listRouter.get('/:userId/:listId', (req, res) => {
 
-    const requiredParamsNames = ['userId','id'];
+    const requiredParamsNames = ['userId','listId'];
 
     for (let name in requiredParamsNames){
         if (!req.params[requiredParamsNames[name]]) {
@@ -21,7 +21,9 @@ listRouter.get('/:userId/:id', (req, res) => {
         }
     }
 
-    let { userId, id } = req.params;
+    let { userId, listId } = req.params;
+
+    getList(res, listId, userId);
 
 });
 

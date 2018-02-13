@@ -60,10 +60,73 @@ const getAllLists = (response, userId) => {
 
 const getList = (response, listId, userId) => {
 
+    UserModel.findById(userId)
+        .then((data) => {
+
+            if (data) {
+
+                const foundList = data.lists.find(list => {
+                    return list.id == listId;
+                });
+
+                if (foundList) {
+                    response.json(foundList);
+                }
+
+                //list doesnt exist
+                else {
+                    response.send('Nope. No list!');
+                    return Promise.reject('Error!');
+                }
+            }
+
+            //user doesnt exist
+            else {
+                response.send('Nope.');
+                return Promise.reject('Error!');
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+
+const updateList = (response, listId, userId) => {
+  
+    UserModel.findById(userId)
+        .then((data) => {
+
+            if (data) {
+
+                const foundList = data.lists.find(list => {
+                    return list.id == listId;
+                });
+
+                if (foundList) {
+                    response.json(foundList);
+                }
+
+                //list doesnt exist
+                else {
+                    response.send('Nope. No list!');
+                    return Promise.reject('Error!');
+                }
+            }
+
+            //user doesnt exist
+            else {
+                response.send('Nope.');
+                return Promise.reject('Error!');
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 };
 
 module.exports = {
     createList,
     getList,
-    getAllLists
+    getAllLists,
+    updateList
 };
