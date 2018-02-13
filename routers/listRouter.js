@@ -4,7 +4,8 @@ const {
 
     createList,
     getList,
-    getAllLists
+    getAllLists,
+    updateList
 
 } = require('../controllers/listController');
 
@@ -57,26 +58,12 @@ listRouter.post('/:userId/create', (req, res) => {
 });
 
 //update a list
-listRouter.put('/:userId/update/:id', (req, res) => {
-    let requiredParamsNames = ['coinName', 'id'];
-    let requiredBodyNames = ['listAmount', 'previousValue', 'date'];
+listRouter.put('/:userId/update/:listId', (req, res) => {
 
-    for (let name in requiredParamsNames){
-        if (!req.params[requiredParamsNames[name]]) {
-            return res.status(404).send('Missing query.');
-        }
-    }
+    let { userId, listId } = req.params;
+    let { name } = req.body;
 
-    for (let name in requiredBodyNames){
-        if (!req.body[requiredBodyNames[name]]) {
-            return res.status(404).send('Missing query.');
-        }
-    }
-
-    let { coinName, id } = req.params;
-    let { listAmount, date, previousValue } = req.body;
-
-
+    updateList(res, listId, name, userId);
 });
 
 //del a list

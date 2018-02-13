@@ -91,8 +91,8 @@ const getList = (response, listId, userId) => {
         });
 };
 
-const updateList = (response, listId, userId) => {
-  
+const updateList = (response, listId, newName, userId) => {
+
     UserModel.findById(userId)
         .then((data) => {
 
@@ -103,7 +103,8 @@ const updateList = (response, listId, userId) => {
                 });
 
                 if (foundList) {
-                    response.json(foundList);
+                    foundList.name = newName;
+                    return data.save();
                 }
 
                 //list doesnt exist
@@ -118,6 +119,13 @@ const updateList = (response, listId, userId) => {
                 response.send('Nope.');
                 return Promise.reject('Error!');
             }
+        })
+        .then(updatedUser => {
+            console.log('I updated the data?');
+            console.log(updatedUser.lists);
+            console.log('--------------------');
+            response.status(201).send('Updated!');
+
         })
         .catch((err) => {
             console.log(err);
