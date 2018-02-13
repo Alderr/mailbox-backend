@@ -24,7 +24,10 @@ listRouter.get('/:userId/:listId', (req, res) => {
 
     let { userId, listId } = req.params;
 
-    getList(res, listId, userId);
+    getList(listId, userId)
+        .then(data => {
+            res.json(data);
+        });
 
 });
 
@@ -51,7 +54,7 @@ listRouter.post('/:userId/create', (req, res) => {
     let { name, contacts } = req.body;
     let { userId } = req.params;
     console.log('got here!');
-    console.log('USERID', userId)
+    console.log('USERID', userId);
 
     createList(res, { name , contacts }, userId);
 

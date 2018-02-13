@@ -15,8 +15,7 @@ const UserSchema = mongoose.Schema({
             date: { type: Number, default: Date.now()},
             name: { type: String, required: true },
             lists:  [{
-                id: { type: String, required: true},
-                name: { type: String, required: true }
+                id: { type: String, required: true}
             }],
             email_content: {
                 subject: { type: String, required: true},

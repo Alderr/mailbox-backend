@@ -1,5 +1,7 @@
 const axios = require('axios');
 
+const { getList } = require('./listController');
+
 const sendEmailNow = (userId, campaign) => {
 
     //gist: creating a campaign obj to send of to AWS_SES_SERVER
@@ -9,11 +11,35 @@ const sendEmailNow = (userId, campaign) => {
     //console.log('CAMPAIGN', JSON.stringify(campaign, null, 2));
 
     console.log('LISTS', campaign.lists);
-    //get all of the list(s) from user
+    console.log('---------------LISTS---------------');
+    //get specific list(s) mentioned in campaign;
+    Promise.all(campaign.lists.map(aList => {
+        return getList(aList.id, userId);
+    }))
+        .then(data => {
+            console.log('DATA AKA LISTS', JSON.stringify(data, null, 2));
+            console.log('------------------DATA AKA LISTS-----------------S');
+            let allLists = [];
 
-    //attach the list to object
+            for(let list in data) {
+                allLists = allLists.concat(data[list].contacts);
+            }
 
-    //send to AWS_SES_SERVER
+            //attach the list to object
+            campaign.lists = allLists;
+            console.log('CAMPAIGN.LISTS', JSON.stringify(campaign.lists, null, 2))
+            console.log('-------------------CAMPAIGN.LISTS---------------');
+
+            //send to AWS_SES_SERVER
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+
+
 };
+
+
 
 module.exports = { sendEmailNow };

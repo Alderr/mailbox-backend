@@ -58,9 +58,10 @@ const getAllLists = (response, userId) => {
 
 };
 
-const getList = (response, listId, userId) => {
+//modular; make everything else modular plz lol
+const getList = (listId, userId) => {
 
-    UserModel.findById(userId)
+    return UserModel.findById(userId)
         .then((data) => {
 
             if (data) {
@@ -70,20 +71,18 @@ const getList = (response, listId, userId) => {
                 });
 
                 if (foundList) {
-                    response.json(foundList);
+                    return Promise.resolve(foundList);
                 }
 
                 //list doesnt exist
                 else {
-                    response.send('Nope. No list!');
-                    return Promise.reject('Error!');
+                    return Promise.reject('Error! Nope. No list!');
                 }
             }
 
             //user doesnt exist
             else {
-                response.send('Nope.');
-                return Promise.reject('Error!');
+                return Promise.reject('Error! No user!');
             }
         })
         .catch((err) => {
