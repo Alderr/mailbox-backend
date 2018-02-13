@@ -31,6 +31,7 @@ const sendEmailNow = (userId, campaign) => {
             console.log('-------------------CAMPAIGN.LISTS---------------');
 
             //send to AWS_SES_SERVER
+            
         })
         .catch(err => {
             console.log(err);

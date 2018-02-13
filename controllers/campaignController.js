@@ -42,7 +42,7 @@ const createCampaign = (response, newCampaign, userId) => {
                     console.log(savedCampaign);
                     console.log('--------------------');
                     response.status(201).send('Added.');
-
+ 
                     //send the campaign ASAP
                     sendEmailNow(userId, newCampaign);
                 })
