@@ -7,7 +7,7 @@ const sendEmailNow = (userId, campaign) => {
     //gist: creating a campaign obj to send of to AWS_SES_SERVER
 
     const AWS_SES_SERVER_URL_NOW = process.env.AWS_SES_SERVER_URL_NOW;
-    console.log('AWS_SES_SERVER_URL', AWS_SES_SERVER_URL);
+    console.log('AWS_SES_SERVER_URL_NOW', AWS_SES_SERVER_URL_NOW);
     //console.log('CAMPAIGN', JSON.stringify(campaign, null, 2));
 
     console.log('LISTS', campaign.lists);
@@ -28,10 +28,10 @@ const sendEmailNow = (userId, campaign) => {
                 allLists = allLists.concat(data[list].contacts);
             }
 
-            //attach allList to object aka campaign
-            campaign.lists = allLists;
-            console.log('CAMPAIGN.LISTS', JSON.stringify(campaign.lists, null, 2));
-            console.log('-------------------CAMPAIGN.LISTS---------------');
+            //attach allList to object aka campaign & replace
+            campaign.contacts = allLists;
+            console.log('campaign.contacts', JSON.stringify(campaign.contacts, null, 2));
+            console.log('-------------------campaign.contacts---------------');
 
             //send the campaign to AWS_SES_SERVER
             //Send a POST request
@@ -43,6 +43,9 @@ const sendEmailNow = (userId, campaign) => {
                 .then(data => {
                     console.log(data);
                     console.log('---------------Successful!------------');
+                })
+                .catch(err => {
+                    console.log(err);
                 });
         })
         .catch(err => {
