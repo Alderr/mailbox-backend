@@ -22,9 +22,9 @@ const createList = (response, newList, userId) => {
         })
         .then(savedList => {
             console.log('I saved the data?');
-            console.log(savedList);
+            console.log(savedList.lists);
             console.log('--------------------');
-            response.status(201).send('Added.');
+            response.status(201).json(savedList);
 
         })
         .catch((err) => {

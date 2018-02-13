@@ -36,16 +36,19 @@ listRouter.get('/:userId', (req, res) => {
 
 //create a list
 listRouter.post('/:userId/create', (req, res) => {
-    let requiredQueryNames = ['name', 'contacts'];
+    // let requiredQueryNames = ['name', 'contacts'];
+    //
+    // for (let name in requiredQueryNames){
+    //     if (!req.body[requiredQueryNames[name]]) {
+    //         return res.status(404).send('Missing query.');
+    //     }
+    // }
 
-    for (let name in requiredQueryNames){
-        if (!req.body[requiredQueryNames[name]]) {
-            return res.status(404).send('Missing query.');
-        }
-    }
 
     let { name, contacts } = req.body;
     let { userId } = req.params;
+    console.log('got here!');
+    console.log('USERID', userId)
 
     createList(res, { name , contacts }, userId);
 
