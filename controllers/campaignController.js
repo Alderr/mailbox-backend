@@ -18,7 +18,7 @@ const createCampaign = (response, newCampaign, userId) => {
         .then(data => {
 
             //attach id to campaign
-            newCampaign.campaignEventId = data._id;
+            newCampaign.campaign_event_data_id = data._id;
 
             //add campaign to specific user but first find it
             UserModel.findById(userId)
@@ -42,7 +42,7 @@ const createCampaign = (response, newCampaign, userId) => {
                     console.log(savedCampaign);
                     console.log('--------------------');
                     response.status(201).send('Added.');
- 
+
                     //send the campaign ASAP
                     sendEmailNow(userId, newCampaign);
                 })

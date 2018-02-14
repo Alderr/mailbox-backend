@@ -11,7 +11,7 @@ const UserSchema = mongoose.Schema({
     },
     campaigns: [
         {
-            campaignEventId: {type: String},
+            campaign_event_data_id: {type: String},
             date: { type: Number, default: Date.now()},
             name: { type: String, required: true },
             lists:  [{

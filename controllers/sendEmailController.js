@@ -41,7 +41,7 @@ const sendEmailNow = (userId, campaign) => {
                 data: campaign
             })
                 .then(data => {
-                    console.log(data);
+                    //console.log(data);
                     console.log('---------------Successful!------------');
                 })
                 .catch(err => {
