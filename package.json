@@ -4,6 +4,7 @@
   "description": "Back-end taking care of users, users' lists, campaigns, and their mail event data.",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
