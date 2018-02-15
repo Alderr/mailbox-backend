@@ -61,7 +61,7 @@ const getCampaign = (response, userId, campaignId) => {
 
 const getAllCampaigns = (userId) => {
 
-    UserModel.findById(userId)
+    return UserModel.findById(userId)
         .then(data => {
             if(data) {
                 return data.campaigns;
