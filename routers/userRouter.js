@@ -3,6 +3,21 @@ const express = require('express');
 const userRouter = express.Router();
 
 const { createUser, getUser, getAllUsers } = require('../controllers/userController');
+
+//gets all users
+userRouter.get('/all', (req, res) => {
+    console.log('all users!');
+    return getAllUsers()
+        .then(data => {
+            console.log('all users came back');
+            res.json(data);
+        })
+        .catch(err => {
+            console.log('err!');
+            res.send(err);
+        });
+});
+
 //get a user
 userRouter.get('/:id', (req, res) => {
 
@@ -26,19 +41,6 @@ userRouter.get('/:id', (req, res) => {
             res.send(err);
         });
 
-});
-
-//gets all users
-userRouter.get('/all', (req, res) => {
-    return getAllUsers()
-        .then(data => {
-            console.log('all users came back');
-            res.json(data);
-        })
-        .catch(err => {
-            console.log('err!');
-            res.send(err);
-        });
 });
 
 //create a user

@@ -5,13 +5,13 @@ const loginRouter = express.Router();
 const { findUser } = require('../controllers/userController');
 
 
-loginRouter.post('/logIn', (req, res) => {
+loginRouter.post('/signIn', (req, res) => {
 
-    const { user } = req.body;
+    const { username, password } = req.body;
 
-    return findUser(user)
+    return findUser(username, password)
         .then(data => {
-            res.json(data);
+            res.send(data);
         })
         .catch(err => {
             res.send(err.message);

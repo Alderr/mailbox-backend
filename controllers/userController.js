@@ -16,24 +16,17 @@ const createUser = (user) => {
 
 const getUser = (userId) => {
 
-
-
     return UserModel.findById(userId)
         .then((data) => {
 
-            if (data) {
-                console.log(data);
-                console.log('-------------USER BACK------------');
-                return data;
-            }
+            console.log(data);
+            console.log('-------------USER BACK------------');
+            return data;
 
-            else {
-                return 'Failure';
-            }
         })
         .catch((err) => {
             console.log(err);
-            return 'Failure';
+            return 'No such user!';
         });
 };
 
@@ -42,15 +35,10 @@ const getAllUsers = () => {
     return UserModel.find()
         .then((data) => {
 
-            if (data) {
-                console.log(data);
-                console.log('-------------USERS BACK------------');
-                return data;
-            }
+            console.log(data);
+            console.log('-------------USERS BACK------------');
+            return data;
 
-            else {
-                return 'Failure';
-            }
         })
         .catch((err) => {
             console.log(err);
@@ -58,21 +46,19 @@ const getAllUsers = () => {
         });
 };
 
+const findUser = (username, password) => {
 
-const findUser = (user) => {
-    const { username, password } = user;
-
-    return UserModel.find(userId)
+    return UserModel.find({username, password})
         .then((data) => {
 
-            if (data) {
-                console.log(data);
+            if (data[0]) {
+                console.log(data[0].id);
                 console.log('-------------USER BACK------------');
-                return data;
+                return data[0].id;
             }
 
             else {
-                return 'Failure';
+                return 'Wrong credentials!';
             }
         })
         .catch((err) => {
