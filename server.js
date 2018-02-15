@@ -10,6 +10,7 @@ const userRouter = require('./routers/userRouter');
 const campaignRouter = require('./routers/campaignRouter');
 const eventDataRouter = require('./routers/eventDataRouter');
 const listRouter = require('./routers/listRouter');
+const loginRouter = require('./routers/loginRouter');
 const app = express();
 
 app.use(morgan('common'));
@@ -20,6 +21,7 @@ app.use('/user', userRouter);
 app.use('/campaign', campaignRouter);
 app.use('/eventData', eventDataRouter);
 app.use('/list', listRouter);
+app.use('/login', loginRouter);
 
 const DATABASE_URL = process.env.DATABASE_URL;
 const PORT = process.env.PORT;

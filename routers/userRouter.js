@@ -2,7 +2,7 @@ const express = require('express');
 
 const userRouter = express.Router();
 
-const { createUser } = require('../controllers/userController');
+const { createUser, getUser } = require('../controllers/userController');
 //get a user
 userRouter.get('/:id', (req, res) => {
 
@@ -16,6 +16,8 @@ userRouter.get('/:id', (req, res) => {
 
     let { id } = req.params;
 
+    //getUser(id);
+    
 });
 
 //gets all users
