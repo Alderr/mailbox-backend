@@ -59,19 +59,19 @@ const getCampaign = (response, userId, campaignId) => {
 
 };
 
-const getAllCampaigns = (response, userId) => {
+const getAllCampaigns = (userId) => {
 
     UserModel.findById(userId)
         .then(data => {
             if(data) {
-                return response.json(data.campaigns);
+                return data.campaigns;
             }
 
-            return response.send('Nope.');
+            return 'No such user!';
         })
         .catch((err) => {
-            response.send('Error!');
             console.log(err);
+            return err;
         });
 
 };
