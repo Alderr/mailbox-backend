@@ -2,7 +2,7 @@ const express = require('express');
 
 const userRouter = express.Router();
 
-const { createUser, getUser } = require('../controllers/userController');
+const { createUser, getUser, getAllUsers } = require('../controllers/userController');
 //get a user
 userRouter.get('/:id', (req, res) => {
 
@@ -16,13 +16,29 @@ userRouter.get('/:id', (req, res) => {
 
     let { id } = req.params;
 
-    //getUser(id);
-    
+    return getUser(id)
+        .then(data => {
+            console.log('all users came back');
+            res.json(data);
+        })
+        .catch(err => {
+            console.log('err!');
+            res.send(err);
+        });
+
 });
 
 //gets all users
 userRouter.get('/all', (req, res) => {
-
+    return getAllUsers()
+        .then(data => {
+            console.log('all users came back');
+            res.json(data);
+        })
+        .catch(err => {
+            console.log('err!');
+            res.send(err);
+        });
 });
 
 //create a user

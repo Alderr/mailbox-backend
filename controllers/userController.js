@@ -16,7 +16,7 @@ const createUser = (user) => {
 
 const getUser = (userId) => {
 
-    console.log(user);
+
 
     return UserModel.findById(userId)
         .then((data) => {
@@ -37,9 +37,31 @@ const getUser = (userId) => {
         });
 };
 
+const getAllUsers = () => {
+
+    return UserModel.find()
+        .then((data) => {
+
+            if (data) {
+                console.log(data);
+                console.log('-------------USERS BACK------------');
+                return data;
+            }
+
+            else {
+                return 'Failure';
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            return 'Failure';
+        });
+};
+
+
 const findUser = (user) => {
     const { username, password } = user;
-    
+
     return UserModel.find(userId)
         .then((data) => {
 
@@ -60,4 +82,5 @@ const findUser = (user) => {
 };
 
 
-module.exports = { createUser, getUser, findUser };
+
+module.exports = { createUser, getUser, getAllUsers, findUser };
