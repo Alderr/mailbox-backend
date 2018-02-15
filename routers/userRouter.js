@@ -18,6 +18,50 @@ userRouter.get('/all', (req, res) => {
         });
 });
 
+//user summary data - dashboard
+userRouter.get('/summary', (req, res) => {
+    res.json({
+        totalContacts: 1230,
+        totalEmails: 123,
+        clicks: 123,
+        recentCampaigns: [
+            {
+                'date': 1518572043706,
+                'lists': [
+                    {
+                        '_id': '5a83b55af6457c2e70852fb6',
+                        'id': '5a838c086313a838588e45c8'
+                    }
+                ],
+                'email_content': {
+                    'subject': 'Cheap stuffzz!?!',
+                    'body': 'Dont buy buy buy. I\'ll lose a lot of money lol <a href=\'google.com\'> test me!</a>',
+                    'sender': 'vernonmensah@gmail.com'
+                },
+                '_id': '5a83b55af6457c2e70852fb5',
+                'name': '50% off',
+                'campaign_event_data_id': '5a83b55af6457c2e70852fb4'
+            },
+            {
+                'date': 1518617240602,
+                'lists': [
+                    {
+                        '_id': '5a8458a3a82b5a0e189c5ffc',
+                        'id': '5a838c086313a838588e45c8'
+                    }
+                ],
+                'email_content': {
+                    'subject': 'Hey! From Thinkful',
+                    'body': 'Welcome. You\'re gonna google alot. <a href=\'google.com\'> try it lol!</a>',
+                    'sender': 'vernonmensah@gmail.com'
+                },
+                '_id': '5a8458a3a82b5a0e189c5ffb',
+                'name': 'Thinkful Welcome',
+                'campaign_event_data_id': '5a8458a3a82b5a0e189c5ffa'
+            }
+        ]
+    });
+});
 //get a user
 userRouter.get('/:id', (req, res) => {
 
