@@ -24,6 +24,7 @@ eventDataRouter.get('/:id', (req, res) => {
 
     getEventDataCampaign(res, id)
         .then(data => {
+            console.log(data);
             res.json(data);
         })
         .catch(err => {
