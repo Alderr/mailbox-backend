@@ -2,7 +2,7 @@ const express = require('express');
 
 const campaignRouter = express.Router();
 
-const { createCampaign, getAllCampaigns } = require('../controllers/campaignController');
+const { createCampaign, getAllCampaigns, deleteCampaign } = require('../controllers/campaignController');
 
 //get a campaign
 campaignRouter.get('/:userId/:id', (req, res) => {
@@ -79,24 +79,27 @@ campaignRouter.put('/:userId/update/:id', (req, res) => {
 });
 
 //del a campaign
-campaignRouter.delete(':userId/delete/:id', (req, res) => {
-    let requiredParamsNames = ['id'];
+campaignRouter.delete('/:userId/delete/:id', (req, res) => {
+    
+    const { userId, id } = req.params;
 
-    for (let name in requiredParamsNames){
-        if (!req.params[requiredParamsNames[name]]) {
-            return res.status(404).send('Missing query.');
-        }
-    }
+    return deleteCampaign(userId, id)
+        .then(data => {
+            console.log(data);
+            res.json(data);
 
-    let { coinName, id } = req.params;
-
+        })
+        .catch(err => {
+            console.log(err);
+            res.send(err);
+        });
 
 });
 
 //delete all campaigns NUKE
-campaignRouter.delete(':userId/delete/all', (req, res) => {
-
-});
+// campaignRouter.delete(':userId/delete/all', (req, res) => {
+//
+// });
 
 
 module.exports = campaignRouter;

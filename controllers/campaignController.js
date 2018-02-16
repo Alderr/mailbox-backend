@@ -82,8 +82,36 @@ const updateCampaign = (response, userId, campaignId) => {
 };
 
 //not done
-const deleteCampaign = (response, userId, campaignId) => {
+const deleteCampaign = (userId, campaignId) => {
+    return UserModel.findById(userId)
+        .then((data) => {
+
+            if (data) {
+                const newCampaigns = data.campaigns.filter(campaign => {
+                    return campaign.id !== campaignId;
+                });
+
+                data.campaigns = newCampaigns;
+                return data.save();
+            }
+
+            //user doesnt exist
+            else {
+                return 'Error!';
+            }
+        })
+        .then(newCampaign => {
+            console.log('I saved the data?');
+            console.log(newCampaign.campaigns);
+            console.log('--------------------');
+
+            return newCampaign.campaigns;
+
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 
 };
 
-module.exports = { createCampaign, getAllCampaigns };
+module.exports = { createCampaign, getAllCampaigns, deleteCampaign };
