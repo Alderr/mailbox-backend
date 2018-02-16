@@ -25,8 +25,8 @@ const getAllEventDataCampaigns = (response) => {
         });
 };
 
-const getEventDataCampaign = (response, id) => {
-    EventDataModel.findById(id)
+const getEventDataCampaign = (id) => {
+    return EventDataModel.findById(id)
         .then(data => {
             console.log(data);
             return data;

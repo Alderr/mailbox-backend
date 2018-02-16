@@ -18,11 +18,10 @@ eventDataRouter.get('/', (req, res) => {
 //get specific event data obj
 eventDataRouter.get('/:id', (req, res) => {
     console.log('event data home path!');
+    const { id } = req.params;
+    
 
-    const { id } = res.params;
-
-
-    getEventDataCampaign(res, id)
+    getEventDataCampaign(id)
         .then(data => {
             console.log(data);
             res.json(data);
@@ -32,7 +31,7 @@ eventDataRouter.get('/:id', (req, res) => {
             res.send(err.message);
         });
 
-    res.send('Home! event /');
+    //res.send('Home! event /');
 });
 
 //create event data obj in event data collection
