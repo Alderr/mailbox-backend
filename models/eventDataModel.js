@@ -21,13 +21,13 @@ const CampaignEventDataSchema = mongoose.Schema({
       {
           emails: [
               {
-                email: { type: String, required: true },
-                clickEvents: [
-                  {
-                    timestamp: { type: String, required: true },
-                    link: { type: String, required: true }
-                  }
-                ]
+                  email: { type: String, required: true },
+                  clickEvents: [
+                      {
+                          timestamp: { type: String, required: true },
+                          link: { type: String, required: true }
+                      }
+                  ]
               }
           ]
       }

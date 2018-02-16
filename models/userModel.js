@@ -30,7 +30,8 @@ const UserSchema = mongoose.Schema({
         contacts: [{
             firstName: { type: String},
             lastName: { type: String },
-            email: { type: String, required: true}
+            email: { type: String, required: true},
+            date: { type: Number, default: Date.now()},
         }]
     }]
 });
