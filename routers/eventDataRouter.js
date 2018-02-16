@@ -2,7 +2,7 @@ const express = require('express');
 
 const eventDataRouter = express.Router();
 const {
-  
+
     createEventDataCampaign,
     getEventDataCampaign,
     updateEventDataCampaign,
@@ -22,7 +22,14 @@ eventDataRouter.get('/:id', (req, res) => {
     const { id } = res.params;
 
 
-    getEventDataCampaign(res, id);
+    getEventDataCampaign(res, id)
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => {
+            console.log(err);
+            res.send(err.message);
+        });
 
     res.send('Home! event /');
 });
