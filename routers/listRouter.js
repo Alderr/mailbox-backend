@@ -12,7 +12,8 @@ const {
 
 const {
 
-    addContact
+    addContact,
+    deleteContact
 
 } = require('../controllers/contactController');
 
@@ -83,6 +84,25 @@ listRouter.put('/:userId/update/:listId/createContact', (req, res) => {
     let  data = req.body;
     console.log('addContact!', userId, listId, data);
     return addContact(listId, data, userId)
+        .then(data => {
+            console.log(data);
+            res.send(data);
+        })
+        .catch(err => {
+            console.log(err);
+            res.send(err);
+        });
+
+});
+
+//update a list; delete
+listRouter.put('/:userId/update/:listId/deleteContact', (req, res) => {
+
+    let { userId, listId } = req.params;
+
+    let  { contactId } = req.body;
+    console.log('addContact!', userId, listId);
+    return deleteContact(listId, contactId, userId)
         .then(data => {
             console.log(data);
             res.send(data);
