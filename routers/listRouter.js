@@ -10,6 +10,12 @@ const {
 
 } = require('../controllers/listController');
 
+const {
+
+    addContact
+
+} = require('../controllers/contactController');
+
 const listRouter = express.Router();
 
 //get a list
@@ -70,6 +76,24 @@ listRouter.put('/:userId/update/:listId', (req, res) => {
     updateList(res, listId, name, userId);
 });
 
+//update a list
+listRouter.put('/:userId/update/:listId/createContact', (req, res) => {
+
+    let { userId, listId } = req.params;
+    let  data = req.body;
+    console.log('addContact!', userId, listId, data);
+    return addContact(listId, data, userId)
+        .then(data => {
+            console.log(data);
+            res.send(data);
+        })
+        .catch(err => {
+            console.log(err);
+            res.send(err);
+        });
+
+});
+
 //del a list
 listRouter.delete('/:userId/delete/:id', (req, res) => {
     // let requiredParamsNames = ['id'];
@@ -97,6 +121,7 @@ listRouter.delete('/:userId/delete/:id', (req, res) => {
 listRouter.delete(':userId/delete', (req, res) => {
 
 });
+
 
 
 module.exports = listRouter;
