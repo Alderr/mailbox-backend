@@ -58,10 +58,33 @@ const updateEventDataCampaign = (response, id, data) => {
         });
 };
 
+const updateEventDataCampaignContacts = (id, contacts) => {
+    return EventDataModel.findById(id)
+        .then((data) => {
+            if (data) {
+                console.log(data);
+                data.contacts = contacts.map(contact => contact.email);
+                return data.save();
+            }
+
+            else {
+                return 'No such user';
+            }
+        })
+        .then(res => {
+            console.log(res);
+            return 'Added? update event data contacts';
+        })
+        .catch((err) => {
+            console.log(err);
+            return err;
+        });
+};
 module.exports =
 {
     createEventDataCampaign,
     getAllEventDataCampaigns,
     getEventDataCampaign,
-    updateEventDataCampaign
+    updateEventDataCampaign,
+    updateEventDataCampaignContacts
 };

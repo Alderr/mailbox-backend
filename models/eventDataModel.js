@@ -3,6 +3,9 @@ mongoose.Promise = global.Promise;
 
 
 const CampaignEventDataSchema = mongoose.Schema({
+    contacts: [
+        { type: String, required: true }
+    ],
     delivery:
       {
           emails: [

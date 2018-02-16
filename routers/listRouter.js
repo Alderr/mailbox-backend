@@ -5,7 +5,8 @@ const {
     createList,
     getList,
     getAllLists,
-    updateList
+    updateList,
+    deleteList
 
 } = require('../controllers/listController');
 
@@ -70,18 +71,26 @@ listRouter.put('/:userId/update/:listId', (req, res) => {
 });
 
 //del a list
-listRouter.delete(':userId/delete/:id', (req, res) => {
-    let requiredParamsNames = ['id'];
+listRouter.delete('/:userId/delete/:id', (req, res) => {
+    // let requiredParamsNames = ['id'];
+    //
+    // for (let name in requiredParamsNames){
+    //     if (!req.params[requiredParamsNames[name]]) {
+    //         return res.status(404).send('Missing query.');
+    //     }
+    // }
 
-    for (let name in requiredParamsNames){
-        if (!req.params[requiredParamsNames[name]]) {
-            return res.status(404).send('Missing query.');
-        }
-    }
-
-    let { coinName, id } = req.params;
-
-
+    let { userId, id } = req.params;
+    console.log('HERE!');
+    return deleteList(id, userId)
+        .then(data => {
+            console.log(data);
+            res.json(data);
+        })
+        .catch(err => {
+            console.log(err);
+            res.send(err.message);
+        });
 });
 
 //delete all lists NUKE

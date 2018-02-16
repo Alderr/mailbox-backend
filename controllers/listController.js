@@ -24,7 +24,7 @@ const createList = (response, newList, userId) => {
             console.log('I saved the data?');
             console.log(savedList.lists);
             console.log('--------------------');
-            response.status(201).json(savedList);
+            return response.status(201).json(savedList);
 
         })
         .catch((err) => {
@@ -131,9 +131,43 @@ const updateList = (response, listId, newName, userId) => {
         });
 };
 
+const deleteList = (listId, userId) => {
+
+    return UserModel.findById(userId)
+        .then((data) => {
+
+            if (data) {
+
+                const newLists = data.lists.filter(list => {
+                    return list.id !== listId;
+                });
+
+                data.lists = newLists;
+                return data.save();
+
+            }
+
+            //user doesnt exist
+            else {
+                return 'Error!';
+            }
+        })
+        .then(updatedUser => {
+            console.log('I updated the data?');
+            console.log(updatedUser.lists);
+            console.log('--------------------');
+            return 'Deleted!';
+
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+
 module.exports = {
     createList,
     getList,
     getAllLists,
-    updateList
+    updateList,
+    deleteList
 };
