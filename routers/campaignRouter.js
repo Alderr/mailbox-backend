@@ -49,7 +49,7 @@ campaignRouter.post('/:userId/create', (req, res) => {
     let { name, email_content, lists } = req.body;
     let { userId } = req.params;
 
-    createCampaign(res, { name, email_content, lists }, userId);
+    createCampaign({ name, email_content, lists }, userId);
 
     // res.send('Request recieved. POST campaign');
 
@@ -80,7 +80,7 @@ campaignRouter.put('/:userId/update/:id', (req, res) => {
 
 //del a campaign
 campaignRouter.delete('/:userId/delete/:id', (req, res) => {
-    
+
     const { userId, id } = req.params;
 
     return deleteCampaign(userId, id)

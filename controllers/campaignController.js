@@ -3,7 +3,7 @@ const UserModel = require('../models/userModel');
 const { createEventDataCampaign } = require('./eventDataController');
 const { sendEmailNow } = require('./sendEmailController');
 
-const createCampaign = (response, newCampaign, userId) => {
+const createCampaign = (newCampaign, userId) => {
     //user has a list, they create a campaign
     //first an eventDataCampaign obj is created for future [events] in COLLECTION
     //that eventDataCampaign id is saved onto UserModel-campaign obj aka campaign var

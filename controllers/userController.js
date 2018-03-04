@@ -67,6 +67,40 @@ const findUser = (username, password) => {
         });
 };
 
+const getUserSummaryData = (userId) => {
+    /*
+    Summary:
+    > totalSubscribers
+    > totalEmailsSent
+    > totalClicks
+    > totalOpens
+    > totalBounced
+    > recent2Campaigns
+    */
+    return getUser(userId)
+        .then(data => {
+            console.log(data);
+            let recentCampaigns = getRecentCampaigns(data.campaigns);
+            return { recentCampaigns };
+        })
+        .catch(err => {
+            console.log(err);
+            return err;
+        });
+};
 
+const getRecentCampaigns = (campaigns) => {
+    //empty
+    if (campaigns.length === 0) {
+        return [];
+    }
 
-module.exports = { createUser, getUser, getAllUsers, findUser };
+    //only 1
+    if (campaigns.length < 2) {
+        return campaigns[0];
+    }
+
+    return [campaigns[campaigns.length-1], campaigns[campaigns.length-2]];
+};
+
+module.exports = { createUser, getUser, getAllUsers, findUser, getUserSummaryData };
