@@ -26,9 +26,10 @@ const getAllEventDataCampaigns = (response) => {
 };
 
 const getEventDataCampaign = (id) => {
-    return EventDataModel.findById(id)
+    return EventDataModel.findById(id, '', {lean: true})
         .then(data => {
             console.log(data);
+            console.log('====GOT EVENT DATA====');
             return data;
         })
         .catch(err => {
@@ -80,6 +81,7 @@ const updateEventDataCampaignContacts = (id, contacts) => {
             return err;
         });
 };
+
 module.exports =
 {
     createEventDataCampaign,
