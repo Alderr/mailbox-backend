@@ -33,7 +33,7 @@ const createCampaign = (newCampaign, userId) => {
 
                     //user doesnt exist
                     else {
-                        return Promise.reject('Error!');
+                        throw new Error('Error!');
                     }
                 })
                 .then(savedCampaign => {
@@ -46,6 +46,7 @@ const createCampaign = (newCampaign, userId) => {
                 })
                 .catch((err) => {
                     console.log(err);
+                    return err;
                 });
 
         });
@@ -98,6 +99,7 @@ const deleteCampaign = (userId, campaignId) => {
         })
         .catch((err) => {
             console.log(err);
+            return 'Error!';
         });
 
 };
