@@ -21,7 +21,7 @@ const createCampaign = (newCampaign, userId) => {
             newCampaign.campaign_event_data_id = data._id;
 
             //add campaign to specific user but first find it
-            UserModel.findById(userId)
+            return UserModel.findById(userId)
                 .then((data) => {
 
                     //save campaign onto user obj
@@ -43,7 +43,7 @@ const createCampaign = (newCampaign, userId) => {
 
                     // send the campaign ASAP
                     sendEmailNow(userId, newCampaign);
-                    
+
                     // return a response for the client
                     return 'Created campaign';
                 })
