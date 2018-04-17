@@ -49,10 +49,10 @@ campaignRouter.post('/:userId/create', (req, res) => {
     let { name, email_content, lists } = req.body;
     let { userId } = req.params;
 
-    createCampaign({ name, email_content, lists }, userId);
-
-    // res.send('Request recieved. POST campaign');
-
+    return createCampaign({ name, email_content, lists }, userId)
+        .then((data) => {
+            res.send(data);
+        });
 });
 
 //update a campaign
