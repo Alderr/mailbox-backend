@@ -14,7 +14,7 @@ const createCampaign = (newCampaign, userId) => {
     // console.log(campaign);
 
     //create eventCampaign & get id of it
-    createEventDataCampaign()
+    return createEventDataCampaign()
         .then(data => {
 
             //attach id to campaign
