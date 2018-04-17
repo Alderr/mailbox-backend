@@ -73,10 +73,4 @@ campaignRouter.delete('/:userId/delete/:id', (req, res) => {
 
 });
 
-//delete all campaigns NUKE
-// campaignRouter.delete(':userId/delete/all', (req, res) => {
-//
-// });
-
-
 module.exports = campaignRouter;
