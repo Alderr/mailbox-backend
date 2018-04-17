@@ -51,7 +51,6 @@ const createCampaign = (newCampaign, userId) => {
                     console.log(err);
                     return err;
                 });
-
         });
 
 };

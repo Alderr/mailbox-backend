@@ -55,29 +55,6 @@ campaignRouter.post('/:userId/create', (req, res) => {
         });
 });
 
-//update a campaign
-campaignRouter.put('/:userId/update/:id', (req, res) => {
-    let requiredParamsNames = ['coinName', 'id'];
-    let requiredBodyNames = ['campaignAmount', 'previousValue', 'date'];
-
-    for (let name in requiredParamsNames){
-        if (!req.params[requiredParamsNames[name]]) {
-            return res.status(404).send('Missing query.');
-        }
-    }
-
-    for (let name in requiredBodyNames){
-        if (!req.body[requiredBodyNames[name]]) {
-            return res.status(404).send('Missing query.');
-        }
-    }
-
-    let { coinName, id } = req.params;
-    let { campaignAmount, date, previousValue } = req.body;
-
-
-});
-
 //del a campaign
 campaignRouter.delete('/:userId/delete/:id', (req, res) => {
 
