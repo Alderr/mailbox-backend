@@ -41,8 +41,11 @@ const createCampaign = (newCampaign, userId) => {
                     console.log(savedCampaign);
                     console.log('--------------------');
 
-                    //send the campaign ASAP
+                    // send the campaign ASAP
                     sendEmailNow(userId, newCampaign);
+                    
+                    // return a response for the client
+                    return 'Created campaign';
                 })
                 .catch((err) => {
                     console.log(err);
