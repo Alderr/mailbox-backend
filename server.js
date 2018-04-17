@@ -40,7 +40,6 @@ app.use('*', function (req, res) {
 // gets created when `runServer` runs, so we declare `server` here
 // and then assign a value to it in run
 
-
 let server;
 
 // this function connects to our database, then starts the server

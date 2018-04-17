@@ -33,7 +33,6 @@ const createCampaign = (newCampaign, userId) => {
 
                     //user doesnt exist
                     else {
-                        response.send('Nope. No such user.');
                         return Promise.reject('Error!');
                     }
                 })
@@ -41,7 +40,6 @@ const createCampaign = (newCampaign, userId) => {
                     console.log('I saved the data?');
                     console.log(savedCampaign);
                     console.log('--------------------');
-                    response.status(201).send('Added.');
 
                     //send the campaign ASAP
                     sendEmailNow(userId, newCampaign);
@@ -51,11 +49,6 @@ const createCampaign = (newCampaign, userId) => {
                 });
 
         });
-
-};
-
-//not done
-const getCampaign = (response, userId, campaignId) => {
 
 };
 
@@ -76,12 +69,7 @@ const getAllCampaigns = (userId) => {
 
 };
 
-//not done
-const updateCampaign = (response, userId, campaignId) => {
 
-};
-
-//not done
 const deleteCampaign = (userId, campaignId) => {
     return UserModel.findById(userId)
         .then((data) => {
