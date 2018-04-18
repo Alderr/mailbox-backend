@@ -62,11 +62,11 @@ userRouter.post('/create', (req, res) => {
         }
     }
 
-    let { username, password, name } = req.body;
+    const { username, password, name } = req.body;
 
-    createUser({username, password, name});
-
-    res.send('Request recieved. POST USER');
+    return createUser({username, password, name})
+        .then((response) => res.send(response))
+        .catch((err) => res.send(err.message));
 
 });
 

@@ -2,13 +2,38 @@ const UserModel = require('../models/userModel');
 const { getEventDataCampaign } = require('./eventDataController');
 
 const createUser = (user) => {
+    // Check if password & username are valid
+    // Check if user doesnt exist already
 
-    return UserModel.create(user)
-        .then((data) => {
-            return data;
-        })
-        .catch((err) => {
-            return err;
+    const { username, password, name } = user;
+
+    const usernameIsNotTrimmed = username !== username.trim();
+    const passwordIsNotTrimmed = password !== password.trim();
+  
+    if (usernameIsNotTrimmed || passwordIsNotTrimmed) {
+        throw new Error('No spaces before or after');
+    }
+
+    // Bcrypt truncates after 72 character
+    let wrongPasswordSize = password.length <= 5 || password.length >= 72;
+    let wrongUsernameSize = username.length <= 3 || username.length >= 15;
+
+
+    if (wrongUsernameSize || wrongPasswordSize) {
+        throw new Error('Password must be between 5-72 characters. Username must be between 3-15 characters');
+    }
+
+    return findUser(username)
+        .then((response) => {
+            console.log('createUser -> findUser', response);
+
+            // return UserModel.create(user)
+            //     .then((data) => {
+            //         return data;
+            //     })
+            //     .catch((err) => {
+            //         return err;
+            //     });
         });
 };
 
@@ -34,9 +59,11 @@ const getAllUsers = () => {
         });
 };
 
-const findUser = (username, password) => {
+const findUser = (username, password = null) => {
+    // Depending on whether or not password was given - mainly registering
+    const user = password === null ? { username } : { username, password };
 
-    return UserModel.find({username, password})
+    return UserModel.find(user)
         .then((data) => {
 
             if (data[0]) {
