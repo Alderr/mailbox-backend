@@ -6,15 +6,12 @@ const { createUser, getUser, getAllUsers, getUserSummaryData } = require('../con
 
 //gets all users
 userRouter.get('/all', (req, res) => {
-    console.log('all users!');
     return getAllUsers()
         .then(data => {
-            console.log('all users came back');
             res.json(data);
         })
         .catch(err => {
-            console.log('err!');
-            res.send(err);
+            res.send(err.message);
         });
 });
 
@@ -33,12 +30,10 @@ userRouter.get('/:id', (req, res) => {
 
     return getUser(id)
         .then(data => {
-            console.log('all users came back');
             res.json(data);
         })
         .catch(err => {
-            console.log('err!');
-            res.send(err);
+            res.send(err.message);
         });
 
 });
@@ -53,7 +48,6 @@ userRouter.get('/:id/summary', (req, res) => {
             res.json(data);
         })
         .catch(err => {
-            console.log(err);
             res.send(err.message);
         });
 });
@@ -78,45 +72,18 @@ userRouter.post('/create', (req, res) => {
 
 //update a user
 userRouter.put('/update/:id', (req, res) => {
-    let requiredParamsNames = ['coinName', 'id'];
-    let requiredBodyNames = ['userAmount', 'previousValue', 'date'];
-
-    for (let name in requiredParamsNames){
-        if (!req.params[requiredParamsNames[name]]) {
-            return res.status(404).send('Missing query.');
-        }
-    }
-
-    for (let name in requiredBodyNames){
-        if (!req.body[requiredBodyNames[name]]) {
-            return res.status(404).send('Missing query.');
-        }
-    }
-
-    let { coinName, id } = req.params;
-    let { userAmount, date, previousValue } = req.body;
-
+    res.send('Hit /update/:id');
 
 });
 
 //del a user
 userRouter.delete('/delete/:id', (req, res) => {
-    let requiredParamsNames = ['id'];
-
-    for (let name in requiredParamsNames){
-        if (!req.params[requiredParamsNames[name]]) {
-            return res.status(404).send('Missing query.');
-        }
-    }
-
-    let { coinName, id } = req.params;
-
-
+    res.send('Hit /delete/:id');
 });
 
 //delete all users NUKE
 userRouter.delete('/delete/all', (req, res) => {
-
+    res.send('Hit /delete/all');
 });
 
 
