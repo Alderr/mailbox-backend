@@ -5,35 +5,16 @@ const createUser = (user) => {
     // Check if password & username are valid
     // Check if user doesnt exist already
 
-    const { username, password, name } = user;
-
-    const usernameIsNotTrimmed = username !== username.trim();
-    const passwordIsNotTrimmed = password !== password.trim();
-  
-    if (usernameIsNotTrimmed || passwordIsNotTrimmed) {
-        throw new Error('No spaces before or after');
-    }
-
-    // Bcrypt truncates after 72 character
-    let wrongPasswordSize = password.length <= 5 || password.length >= 72;
-    let wrongUsernameSize = username.length <= 3 || username.length >= 15;
-
-
-    if (wrongUsernameSize || wrongPasswordSize) {
-        throw new Error('Password must be between 5-72 characters. Username must be between 3-15 characters');
-    }
+    const { username } = user;
 
     return findUser(username)
         .then((response) => {
-            console.log('createUser -> findUser', response);
 
-            // return UserModel.create(user)
-            //     .then((data) => {
-            //         return data;
-            //     })
-            //     .catch((err) => {
-            //         return err;
-            //     });
+            if (response !== 'Wrong credentials') {
+                return UserModel.create(user).then((newUser) => newUser._id);
+            }
+
+            return response;
         });
 };
 

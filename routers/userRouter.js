@@ -64,9 +64,27 @@ userRouter.post('/create', (req, res) => {
 
     const { username, password, name } = req.body;
 
+    const usernameIsNotTrimmed = username !== username.trim();
+    const passwordIsNotTrimmed = password !== password.trim();
+  
+    if (usernameIsNotTrimmed || passwordIsNotTrimmed) {
+        return res.status(422).send('No spaces before or after');
+    }
+
+    // Bcrypt truncates after 72 character
+    let wrongPasswordSize = password.length <= 5 || password.length >= 72;
+    let wrongUsernameSize = username.length <= 3 || username.length >= 20;
+
+    if (wrongUsernameSize || wrongPasswordSize) {
+        return res.status(422).send('Password must be between 5-72 characters. Username must be between 3-20 characters');
+    }
+
     return createUser({username, password, name})
         .then((response) => res.send(response))
-        .catch((err) => res.send(err.message));
+        .catch((err) => {
+            console.log(err);
+            res.send('Error');
+        });
 
 });
 
