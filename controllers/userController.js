@@ -1,17 +1,14 @@
 const UserModel = require('../models/userModel');
-const EventDataModel = require('../models/eventDataModel');
 const { getEventDataCampaign } = require('./eventDataController');
 
 const createUser = (user) => {
 
-    console.log(user);
-
-    UserModel.create(user)
+    return UserModel.create(user)
         .then((data) => {
-            console.log(data);
+            return data;
         })
         .catch((err) => {
-            console.log(err);
+            return err;
         });
 };
 
@@ -19,14 +16,9 @@ const getUser = (userId) => {
 
     return UserModel.findById(userId, '', { lean: true })
         .then((data) => {
-
-            console.log(data);
-            console.log('-------------USER BACK------------');
             return data;
-
         })
-        .catch((err) => {
-            console.log(err);
+        .catch(() => { // No need for err; user wasnt found
             return 'No such user!';
         });
 };
@@ -35,15 +27,10 @@ const getAllUsers = () => {
 
     return UserModel.find()
         .then((data) => {
-
-            console.log(data);
-            console.log('-------------USERS BACK------------');
             return data;
-
         })
         .catch((err) => {
-            console.log(err);
-            return 'Failure';
+            return err;
         });
 };
 
@@ -53,8 +40,6 @@ const findUser = (username, password) => {
         .then((data) => {
 
             if (data[0]) {
-                console.log(data[0].id);
-                console.log('-------------USER BACK------------');
                 return data[0].id;
             }
 
@@ -63,8 +48,7 @@ const findUser = (username, password) => {
             }
         })
         .catch((err) => {
-            console.log(err);
-            return 'Failure';
+            return err;
         });
 };
 
@@ -96,7 +80,6 @@ const getUserSummaryData = (userId) => {
         .then(allEventDataCampaignsData => {
             //get totals for events
             eventDataTotalCount = countEvents(allEventDataCampaignsData);
-            console.log('DATA', JSON.stringify(allEventDataCampaignsData, null, 2));
 
             //attach the event data that belongs to a recent campaign
             recentCampaigns = recentCampaigns.map(campaign => {
@@ -118,8 +101,6 @@ const getUserSummaryData = (userId) => {
 
         })
         .catch(err => {
-            console.log('Error!');
-            console.log(err);
             return err;
         });
 };
@@ -129,7 +110,6 @@ const getRecentCampaigns = (campaigns) => {
     if (campaigns.length === 0) {
         return [];
     }
-    console.log('================================');
     //only 1
     if (campaigns.length < 2) {
         return campaigns[0];
@@ -156,8 +136,6 @@ const countSubscribers = (lists) => {
 
 const countEvents = (eventDataCampaigns) => {
 
-    console.log(eventDataCampaigns);
-    console.log('---------------------------');
     let totalEmailsSent = 0;
     let totalClicks = 0;
     let totalOpens = 0;
