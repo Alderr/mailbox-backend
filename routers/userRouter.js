@@ -82,8 +82,7 @@ userRouter.post('/create', (req, res) => {
     return createUser({username, password, name})
         .then((response) => res.send(response))
         .catch((err) => {
-            console.log(err);
-            res.send('Error');
+            res.send(err.message);
         });
 
 });
