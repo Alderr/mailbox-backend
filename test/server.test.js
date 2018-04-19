@@ -7,12 +7,12 @@ chai.use(chai_http);
 
 const { before, after, describe, it } = require('mocha');
 
-const DATABASE_URL = process.env.DATABASE_URL;
+const TEST_DATABASE_URL = process.env.TEST_DATABASE_URL;
 const PORT = process.env.PORT;
 
 describe('Server executes!', () => {
     before(() => {
-        return runServer(DATABASE_URL, PORT);
+        return runServer(TEST_DATABASE_URL, PORT);
     });
 
     after(() => {
