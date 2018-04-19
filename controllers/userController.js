@@ -15,7 +15,7 @@ const createUser = (user) => {
                 return UserModel.create(user).then((newUser) => newUser._id);
             }
 
-            return 'User already exists';
+            throw new Error('User exists');
         });
 };
 
