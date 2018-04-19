@@ -72,8 +72,8 @@ userRouter.post('/create', (req, res) => {
     }
 
     // Bcrypt truncates after 72 character
-    let wrongPasswordSize = password.length <= 5 || password.length >= 72;
-    let wrongUsernameSize = username.length <= 3 || username.length >= 20;
+    let wrongPasswordSize = password.length < 5 || password.length > 72;
+    let wrongUsernameSize = username.length < 3 || username.length > 20;
 
     if (wrongUsernameSize || wrongPasswordSize) {
         return res.status(422).send('Password must be between 5-72 characters. Username must be between 3-20 characters');
