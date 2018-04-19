@@ -11,7 +11,7 @@ const createUser = (user) => {
         .then((response) => {
 
             // aka didnt find a user w/ the same username
-            if (response === 'Wrong credentials') {
+            if (response === 'Wrong credentials!') {
                 return UserModel.create(user).then((newUser) => newUser._id);
             }
 
