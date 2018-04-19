@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
     "axios": "^0.17.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
     "chai-http": "^3.0.0",
     "cors": "^2.8.4",
     "dotenv": "^5.0.0",
