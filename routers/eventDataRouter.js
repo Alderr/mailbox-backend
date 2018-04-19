@@ -17,18 +17,15 @@ eventDataRouter.get('/', (req, res) => {
 
 //get specific event data obj
 eventDataRouter.get('/:id', (req, res) => {
-    console.log('event data home path!');
     const { id } = req.params;
     
 
     getEventDataCampaign(id)
         .then(data => {
-            console.log(data);
-            res.json(data);
+            return res.json(data);
         })
         .catch(err => {
-            console.log(err);
-            res.send(err.message);
+            return res.send(err.message);
         });
 
     //res.send('Home! event /');

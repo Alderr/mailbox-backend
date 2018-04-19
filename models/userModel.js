@@ -38,8 +38,6 @@ const UserSchema = mongoose.Schema({
 
 
 UserSchema.methods.serialize = function () {
-    console.log(this);
-
     return {
         id: this._id,
         username: this.username,

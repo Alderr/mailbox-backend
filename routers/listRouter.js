@@ -30,27 +30,27 @@ listRouter.get('/:userId/:listId', (req, res) => {
         }
     }
 
-    let { userId, listId } = req.params;
+    const { userId, listId } = req.params;
 
     getList(listId, userId)
-        .then(data => {
-            res.json(data);
-        });
-
+        .then(data => res.json(data))
+        .catch(err => res.send(err.message));
 });
 
 //gets all lists
 listRouter.get('/:userId', (req, res) => {
 
-    let { userId } = req.params;
+    const { userId } = req.params;
 
-    getAllLists(res, userId);
+    getAllLists(userId)
+        .then(data => res.send(data))
+        .catch(err => res.send(err));
 
 });
 
 //create a list
 listRouter.post('/:userId/create', (req, res) => {
-    // let requiredQueryNames = ['name', 'contacts'];
+    // const requiredQueryNames = ['name', 'contacts'];
     //
     // for (let name in requiredQueryNames){
     //     if (!req.body[requiredQueryNames[name]]) {
@@ -61,54 +61,48 @@ listRouter.post('/:userId/create', (req, res) => {
 
     let { name, contacts } = req.body;
     let { userId } = req.params;
-    console.log('got here!');
-    console.log('USERID', userId);
 
     createList(res, { name , contacts }, userId);
 
 });
 
-//update a list
+//update a list name
 listRouter.put('/:userId/update/:listId', (req, res) => {
 
     let { userId, listId } = req.params;
     let { name } = req.body;
 
-    updateList(res, listId, name, userId);
+    updateList(listId, name, userId)
+        .then(data => res.json(data))
+        .catch(err => res.json(err.message));
 });
 
 //update a list
 listRouter.put('/:userId/update/:listId/createContact', (req, res) => {
 
-    let { userId, listId } = req.params;
-    let  data = req.body;
-    console.log('addContact!', userId, listId, data);
+    const { userId, listId } = req.params;
+    const  data = req.body;
     return addContact(listId, data, userId)
         .then(data => {
-            console.log(data);
             res.send(data);
         })
         .catch(err => {
-            console.log(err);
             res.send(err);
         });
-
 });
 
 //update a list; delete
 listRouter.put('/:userId/update/:listId/deleteContact', (req, res) => {
 
-    let { userId, listId } = req.params;
+    const { userId, listId } = req.params;
 
-    let  { contactId } = req.body;
-    console.log('addContact!', userId, listId);
+    const  { contactId } = req.body;
+
     return deleteContact(listId, contactId, userId)
         .then(data => {
-            console.log(data);
             res.send(data);
         })
         .catch(err => {
-            console.log(err);
             res.send(err);
         });
 
@@ -116,30 +110,24 @@ listRouter.put('/:userId/update/:listId/deleteContact', (req, res) => {
 
 //del a list
 listRouter.delete('/:userId/delete/:id', (req, res) => {
-    // let requiredParamsNames = ['id'];
-    //
-    // for (let name in requiredParamsNames){
-    //     if (!req.params[requiredParamsNames[name]]) {
-    //         return res.status(404).send('Missing query.');
-    //     }
-    // }
+    const requiredParamsNames = ['id', 'userId'];
+    
+    for (let name in requiredParamsNames){
+        if (!req.params[requiredParamsNames[name]]) {
+            return res.status(404).send('Missing query.');
+        }
+    }
 
-    let { userId, id } = req.params;
-    console.log('HERE!');
+    const { userId, id } = req.params;
+
     return deleteList(id, userId)
-        .then(data => {
-            console.log(data);
-            res.json(data);
-        })
-        .catch(err => {
-            console.log(err);
-            res.send(err.message);
-        });
+        .then(data => res.json(data))
+        .catch(err => res.send(err.message));
 });
 
 //delete all lists NUKE
 listRouter.delete(':userId/delete', (req, res) => {
-
+    return res.send('/Nuke');
 });
 
 

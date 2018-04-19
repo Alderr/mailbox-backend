@@ -11,8 +11,6 @@ const addContact = (listId, obj, userId) => {
                     return list.id == listId;
                 });
 
-                console.log('foundList', foundList);
-
 
                 if (foundList) {
                     foundList.contacts = [...foundList.contacts, {firstName, lastName, email}];
@@ -31,19 +29,13 @@ const addContact = (listId, obj, userId) => {
             }
         })
         .then(updatedUser => {
-            console.log('I updated the data?');
-            console.log(updatedUser.lists);
-            console.log('--------------------');
             return updatedUser.lists;
         })
         .catch((err) => {
-            console.log(err);
+            return err;
         });
 };
 
-const deleteContacts = (response, listId, contact_ids, userId) => {
-
-};
 
 const deleteContact = (listId, contactId, userId) => {
     return UserModel.findById(userId)
@@ -55,17 +47,7 @@ const deleteContact = (listId, contactId, userId) => {
                     return list.id == listId;
                 });
 
-                const newContacts = foundList.contacts.filter(contact => {
-                    console.log('contact._id', typeof(contact.id));
-                    console.log('CONTACTID', typeof(contactId));
-                    console.log('CONTACT._ID !== CONTACTID', contact._id !== contactId);
-                    return contact.id !== contactId;
-
-
-                });
-
-                console.log('foundList', foundList);
-                console.log('newContacts', newContacts);
+                const newContacts = foundList.contacts.filter(contact => contact.id !== contactId);
 
                 if (foundList) {
                     foundList.contacts = newContacts;
@@ -74,23 +56,18 @@ const deleteContact = (listId, contactId, userId) => {
 
                 //list doesnt exist
                 else {
-                    return 'No such list!';
+                    throw new Error('No such list');
                 }
             }
 
             //user doesnt exist
             else {
-                return 'No such user!!';
+                throw new Error('No such user');
             }
         })
-        .then(updatedUser => {
-            console.log('I updated the data?');
-            console.log(updatedUser.lists);
-            console.log('--------------------');
-            return updatedUser.lists;
-        })
+        .then(updatedUser => updatedUser.lists)
         .catch((err) => {
-            console.log(err);
+            return err;
         });
 };
 

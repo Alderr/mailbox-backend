@@ -35,30 +35,21 @@ const createList = (response, newList, userId) => {
 
 };
 
-const getAllLists = (response, userId) => {
+const getAllLists = (userId) => {
 
-    UserModel.findById(userId)
+    return UserModel.findById(userId)
         .then((data) => {
 
             //save List onto user obj
             if (data) {
-                console.log('all Lists!', data.lists);
-                response.json(data.lists);
+                return data.lists;
             }
 
             //user doesnt exist
-            else {
-                response.send('Nope.');
-                return Promise.reject('Error!');
-            }
-        })
-        .catch((err) => {
-            console.log(err);
+            throw new Error('No such user');
         });
-
 };
 
-//modular; make everything else modular plz lol
 const getList = (listId, userId) => {
 
     return UserModel.findById(userId)
@@ -66,33 +57,25 @@ const getList = (listId, userId) => {
 
             if (data) {
 
-                const foundList = data.lists.find(list => {
-                    return list.id == listId;
-                });
+                const foundList = data.lists.find(list => list.id == listId);
 
                 if (foundList) {
-                    return Promise.resolve(foundList);
+                    return foundList;
                 }
 
                 //list doesnt exist
-                else {
-                    return Promise.reject('Error! Nope. No list!');
-                }
+                throw new Error('No such list');
             }
 
             //user doesnt exist
-            else {
-                return Promise.reject('Error! No user!');
-            }
-        })
-        .catch((err) => {
-            console.log(err);
+            throw new Error('No such list');
+            
         });
 };
 
-const updateList = (response, listId, newName, userId) => {
+const updateList = (listId, newName, userId) => {
 
-    UserModel.findById(userId)
+    return UserModel.findById(userId)
         .then((data) => {
 
             if (data) {
@@ -107,10 +90,8 @@ const updateList = (response, listId, newName, userId) => {
                 }
 
                 //list doesnt exist
-                else {
-                    response.send('Nope. No list!');
-                    return Promise.reject('Error!');
-                }
+                throw new Error('No such list');
+                
             }
 
             //user doesnt exist
@@ -119,16 +100,7 @@ const updateList = (response, listId, newName, userId) => {
                 return Promise.reject('Error!');
             }
         })
-        .then(updatedUser => {
-            console.log('I updated the data?');
-            console.log(updatedUser.lists);
-            console.log('--------------------');
-            response.status(201).send('Updated!');
-
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        .then(updatedUser => updatedUser._id)
 };
 
 const deleteList = (listId, userId) => {
@@ -138,30 +110,16 @@ const deleteList = (listId, userId) => {
 
             if (data) {
 
-                const newLists = data.lists.filter(list => {
-                    return list.id !== listId;
-                });
+                const newLists = data.lists.filter(list => list.id !== listId);
 
                 data.lists = newLists;
                 return data.save();
-
             }
 
             //user doesnt exist
-            else {
-                return 'Error!';
-            }
+            throw new Error('No such list');
         })
-        .then(updatedUser => {
-            console.log('I updated the data?');
-            console.log(updatedUser.lists);
-            console.log('--------------------');
-            return 'Deleted!';
-
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+        .then(updatedUser => updatedUser._id);
 };
 
 module.exports = {

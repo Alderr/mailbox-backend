@@ -15,30 +15,25 @@ campaignRouter.get('/:userId/:id', (req, res) => {
         }
     }
 
-    let { userId, id } = req.params;
+    // const { userId, id } = req.params;
 
+    // not done
+    return res.json('/campaign');
 });
 
 //gets all campaigns
 campaignRouter.get('/:userId', (req, res) => {
 
-    let { userId } = req.params;
+    const { userId } = req.params;
 
     getAllCampaigns(userId)
-        .then(data => {
-            console.log(data);
-            res.json(data);
-        })
-        .catch(err => {
-            console.log(err);
-            res.send(err.message);
-        });
-
+        .then(data => res.json(data))
+        .catch(err => res.send(err.message));
 });
 
 //create a campaign
 campaignRouter.post('/:userId/create', (req, res) => {
-    let requiredQueryNames = ['name', 'email_content', 'lists'];
+    const requiredQueryNames = ['name', 'email_content', 'lists'];
 
     for (let name in requiredQueryNames){
         if (!req.body[requiredQueryNames[name]]) {
@@ -46,13 +41,12 @@ campaignRouter.post('/:userId/create', (req, res) => {
         }
     }
 
-    let { name, email_content, lists } = req.body;
-    let { userId } = req.params;
+    const { name, email_content, lists } = req.body;
+    const { userId } = req.params;
 
     return createCampaign({ name, email_content, lists }, userId)
-        .then((data) => {
-            res.send(data);
-        });
+        .then(data => res.send(data))
+        .catch(err => res.send(err.message));
 });
 
 //del a campaign
@@ -61,16 +55,8 @@ campaignRouter.delete('/:userId/delete/:id', (req, res) => {
     const { userId, id } = req.params;
 
     return deleteCampaign(userId, id)
-        .then(data => {
-            console.log(data);
-            res.json(data);
-
-        })
-        .catch(err => {
-            console.log(err);
-            res.send(err);
-        });
-
+        .then(data => res.json(data))
+        .catch(err => res.send(err.message));
 });
 
 module.exports = campaignRouter;

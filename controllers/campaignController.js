@@ -10,8 +10,6 @@ const createCampaign = (newCampaign, userId) => {
     //second, a campaign is created in COLLECTION
     //the created userModel-campaign is sent to aws-ses-server!
 
-    // console.log(userId);
-    // console.log(campaign);
 
     //create eventCampaign & get id of it
     return createEventDataCampaign()
@@ -26,7 +24,6 @@ const createCampaign = (newCampaign, userId) => {
 
                     //save campaign onto user obj
                     if (data) {
-                        console.log('all campaigns!', data);
                         data.campaigns = [...data.campaigns, newCampaign];
                         return data.save();
                     }
@@ -36,10 +33,7 @@ const createCampaign = (newCampaign, userId) => {
                         throw new Error('Error!');
                     }
                 })
-                .then(savedCampaign => {
-                    console.log('I saved the data?');
-                    console.log(savedCampaign);
-                    console.log('--------------------');
+                .then(() => {
 
                     // send the campaign ASAP
                     sendEmailNow(userId, newCampaign);
@@ -48,7 +42,6 @@ const createCampaign = (newCampaign, userId) => {
                     return 'Created campaign';
                 })
                 .catch((err) => {
-                    console.log(err);
                     return err;
                 });
         });
@@ -66,7 +59,6 @@ const getAllCampaigns = (userId) => {
             return 'No such user!';
         })
         .catch((err) => {
-            console.log(err);
             return err;
         });
 
@@ -88,20 +80,14 @@ const deleteCampaign = (userId, campaignId) => {
 
             //user doesnt exist
             else {
-                return 'Error!';
+                throw new Error('No such user.');
             }
         })
         .then(newCampaign => {
-            console.log('I saved the data?');
-            console.log(newCampaign.campaigns);
-            console.log('--------------------');
-
             return newCampaign.campaigns;
-
         })
         .catch((err) => {
-            console.log(err);
-            return 'Error!';
+            return err;
         });
 
 };

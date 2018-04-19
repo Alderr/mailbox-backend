@@ -47,8 +47,6 @@ const CampaignEventDataSchema = mongoose.Schema({
 
 
 CampaignEventDataSchema.methods.serialize = function () {
-    console.log(this);
-
     return {
         id: this._id,
         send: this.send,
