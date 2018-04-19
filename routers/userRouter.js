@@ -22,7 +22,7 @@ userRouter.get('/:id', (req, res) => {
 
     for (let name in requiredParamsNames){
         if (!req.params[requiredParamsNames[name]]) {
-            return res.status(404).send('Missing query.');
+            return res.status(404).send('Missing field.');
         }
     }
 
@@ -58,7 +58,7 @@ userRouter.post('/create', (req, res) => {
 
     for (let name in requiredQueryNames){
         if (!req.body[requiredQueryNames[name]]) {
-            return res.status(404).send('Missing query.');
+            return res.status(404).send('Missing field.');
         }
     }
 
