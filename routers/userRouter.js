@@ -82,7 +82,7 @@ userRouter.post('/create', (req, res) => {
     return createUser({username, password, name})
         .then((response) => res.send(response))
         .catch((err) => {
-            res.send(err.message);
+            res.status(422).send(err.message);
         });
 
 });
